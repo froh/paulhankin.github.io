@@ -11,4 +11,4 @@ I've worked mostly on games and large-scale server software.
 
 ### Contact me
 
-[paul.hankin@pobox.com](mailto:paul.hankin@pobox.com]
+[paul.hankin@pobox.com](mailto:paul.hankin@pobox.com)
