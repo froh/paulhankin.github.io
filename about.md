@@ -4,12 +4,11 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Programming since 1981, professionally since 2000. I've a PhD in programming language semantics
+but these days I prefer programming in Go, C, C++ and Python.
 
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself. 
+I've worked mostly on games and large-scale server software.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[paul.hankin@pobox.com](mailto:paul.hankin@pobox.com]
