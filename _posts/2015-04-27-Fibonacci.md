@@ -8,7 +8,7 @@ This code, somewhat surprisingly, generates Fibonacci numbers.
     def fib(n):
         return (4 << n*(3+n)) // ((4 << 2*n) - (2 << n) - 1) & ((2 << n) - 1)
 {% endhighlight %}
-In this blog post, I'll explain where is comes from and how it works.
+In this blog post, I'll explain where it comes from and how it works.
 <!--more-->
 
 Before getting to explaining, I'll give a whirlwind background overview of
