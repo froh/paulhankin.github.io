@@ -116,13 +116,27 @@ In the specific case of the Fibonacci numbers, that means $$\Sigma_n \mathrm{Fib
 In words, it's an infinite power series, with the coefficient of $$x^n$$ being the $$n$$th
 Fibonacci number.
 
-If we call this function $$F(x)$$ and use the definition of $$\mathrm{Fib}$$, we get $$F(x) = x^2F(x) + xF(x) + 1$$.
-That's just saying that the $$n$$th Fibonacci number is the sum of the previous two, and that the coefficient of
-$$x^0$$ is 1.
+Now,
 
-The magic trick of the method of generating functions is that we can solve this equation for $$F$$ to get $$F = \frac{1}{1 - x - x^2}$$.
-This assumes that the infinite sum is convergent, but we know the fibonacci numbers grow like $$\phi^n$$ and that geometric
-sequences $$\Sigma_n a^n$$ converge if $$a<1$$, so we know that if $$\|x\| < 1/\phi \simeq 0.618$$ then the sequence converges.
+$$\mathrm{Fib}(n+2) = \mathrm{Fib}(n+1) + \mathrm{Fib}(n)$$
+
+Multiplying by $$x^{n+2}$$ and summing over all $$n$$, we get:
+
+$$\Sigma_n\mathrm{Fib}(n+2)x^{n+2} = \Sigma_n\mathrm{Fib}(n+1)x^{n+2} + \Sigma_n\mathrm{Fib}(n)x^{n+2}$$
+
+If we let $$F(x)$$ to be the generating function of $$\mathrm{Fib}$$, which is defined to be $$\Sigma_n\mathrm{Fib}(n)x^n$$ then this
+equation can be simplified:
+
+$$F(x) - x - 1 = x(F(x) - 1) + x^2F(X)$$
+
+and simplifying,
+
+$$F(x) = xF(x) + x^2F(x) + 1$$
+
+
+The magic trick of the method of generating functions is that we can solve this equation for $$F$$ to get $$F(x) = \frac{1}{1 - x - x^2}$$.
+This assumes that the infinite sum is convergent, but we know the Fibonacci numbers grow like $$\phi^n$$ and that geometric
+sequence $$\Sigma_n a^n$$ converge if $$a<1$$, so we know that if $$\|x\| < 1/\phi \simeq 0.618$$ then the sequence converges.
 
 ### An integer formula
 
