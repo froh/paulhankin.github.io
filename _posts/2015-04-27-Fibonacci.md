@@ -140,9 +140,10 @@ $$F(x) = \frac{1}{1 - x - x^2}$$
 It's surprising that we've managed to find a small and simple formula which captures all of the Fibonacci numbers,
 but it's not yet obvious how we can use it. We'll get to that in the next section.
 
-A technical aside is that we're going to want to evaluate $$F$$ at some values of $$x$$, and we'd like the sequence to converge.
-We know the Fibonacci numbers grow like $$\phi^n$$ and that geometric
-sequence $$\Sigma_n a^n$$ converge if $$a<1$$, so we know that if $$\|x\| < 1/\phi \simeq 0.618$$ then the sequence converges.
+A technical aside is that we're going to want to evaluate $$F$$ at some values of $$x$$, and we'd like the power series
+to converge. We know the Fibonacci numbers grow like $$\phi^n$$ and that geometric
+series $$\Sigma_n a^n$$ converge if $$|a|<1$$, so we know that if $$|x| < 1/\phi \simeq 0.618$$ then the power series
+converges.
 
 ### An integer formula
 
