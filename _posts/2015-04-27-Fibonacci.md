@@ -148,33 +148,33 @@ sequence $$\Sigma_n a^n$$ converge if $$a<1$$, so we know that if $$\|x\| < 1/\p
 
 Now we're ready to start understanding the Python code.
 
-To get the intuition behind the formula, we'll evaluate $$F$$ at $$10^{-3}$$.
+To get the intuition behind the formula, we'll evaluate the generating function $$F$$ at $$10^{-3}$$.
 
 $$ \begin{align*}
+& F(x) = \frac{1}{1 - x - x^2} \\
 & F(10^{-3})  = \frac{1}{1 - 10^{-3} - 10^{-6}} \\
 & = 1.001\,002\,003\,005\,008\,013\,021\,034\,055\,089\,144\,233\,377\,610\,988\,599\,588\,187\,\ldots \end{align*}$$
 
 Interestingly, we can see some Fibonacci numbers in this decimal expansion: $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89$$. That seems magical and surprising, but it's because $$F(10^{-3}) = \mathrm{Fib}(0) + \mathrm{Fib}(1)/10^3 + \mathrm{Fib}(2)/10^6 + \mathrm{Fib}(3)/10^9 + \ldots$$.
 
 In this example, the Fibonacci numbers are spaced out at multiples of $$1/1000$$, which means once they start getting bigger that 1000 they'll
-start interfering with their neighbours. We can see that starting at 988: the correct Fibonacci number is 987, but there's a 1 overflowed from the
-next number, and this breaks the pattern from then on.
+start interfering with their neighbours. We can see that starting at 988 in the computation of $$F(10^{-3})$$ above: the correct Fibonacci number is 987, but there's a 1 overflowed from the next number in the sequence causing an off-by-one error. This breaks the pattern from then on.
 
-But, if we're interested in the $$n$$th Fibonacci number, we can arrange for the negative power of 10 to be large enough that overflows don't disturb
-the entry we're interested in. We'll assume that $$10^{-k}$$ is sufficient, and we'll come back to picking a particular value for $$k$$.
+But, for any value of $$n$$, we can arrange for the negative power of 10 to be large enough that overflows don't disturb
+the $$n$$th Fibonacci. For now, we'll just assume that there's some $$k$$ which makes $$10^{-k}$$ sufficient, and we'll come back to picking it later.
 
-Since we'd like to use integer maths (because it's easier to code), let's multiply by $$10^{kn}$$, which also puts the $$n$$th Fibonacci
+Also, since we'd like to use integer maths (because it's easier to code), let's multiply by $$10^{kn}$$, which also puts the $$n$$th Fibonacci
 number just to the left of the decimal point, and simplify the equation.
 
 $$ 10^{kn} F(10^{-k}) = \frac{10^{kn}}{1 - 10^{-k} - 10^{-2k}} = \frac{10^{kn+2k}}{10^{2k} - 10^{k} - 1} $$
 
-If we take this result modulo $$10^k$$ now, we'll get the $$n$$th Fibonacci number (again, assuming we've picked $$k$$ large enough).
+If we take this result modulo $$10^k$$, we'll get the $$n$$th Fibonacci number (again, assuming we've picked $$k$$ large enough).
 
 Before proceeding, let's switch to base 2 rather than base 10, which changes nothing but will make it easier to program.
 
 $$ 2^{kn} F(2^{-k}) = \frac{2^{k(n+2)}}{2^{2k} - 2^{k} - 1} $$
 
-All that's left is to pick a value of $$k$$ large enough so that $$\mathrm{Fib}(n+1) < 2^k$$. We know that the Fibonacci numbers
+Now all that's left is to pick a value of $$k$$ large enough so that $$\mathrm{Fib}(n+1) < 2^k$$. We know that the Fibonacci numbers
 grow like $$\phi^n$$, and $$\phi < 2$$, so $$k = n+1$$ is safe.
 
 So! Putting that together:
