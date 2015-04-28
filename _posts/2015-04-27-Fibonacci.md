@@ -21,7 +21,7 @@ Overview
 
 The Fibonacci numbers are a well-known sequence of numbers:
 
-$$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
+$$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, \ldots$$
 
 The $$n$$th number in the sequence is defined to be the sum of the previous two, or formally
 by this recurrence relation:
@@ -39,27 +39,27 @@ I've chosen to start the sequence at index 0 rather than the more usual 1.
 There's a few different reasonably well-known ways of computing the sequence. The obvious recursive implementation is slow:
 
 {% highlight python %}
-	def fib_recursive(n):
-    	if n < 2: return 1
-    	return fib_recursive(n - 1) + fib_recursive(n - 2)
+    def fib_recursive(n):
+        if n < 2: return 1
+        return fib_recursive(n - 1) + fib_recursive(n - 2)
 {% endhighlight %}
 
 An iterative implementation works in $$O(n)$$ operations:
 
 {% highlight python %}
-	def fib_iter(n):
-	    a, b = 1, 1
-	    for _ in xrange(n):
-	        a, b = a + b, a
-	    return b
+    def fib_iter(n):
+        a, b = 1, 1
+        for _ in xrange(n):
+            a, b = a + b, a
+        return b
 {% endhighlight %}
 
 And a slightly less well-known matrix power implementation works in $$O(\mathrm{log}\ n)$$ operations.
 
 {% highlight python %}
-	def fib_matpow(n):
-	    m = numpy.matrix('1 1 ; 1 0') ** n
-	    return m.item(0)
+    def fib_matpow(n):
+        m = numpy.matrix('1 1 ; 1 0') ** n
+        return m.item(0)
 {% endhighlight %}
 
 The last method works by considering the `a` and `b` in `fib_iter`
@@ -102,10 +102,10 @@ It's $$O(\mathrm{log}\ n)$$ based on the assumption that numpy's matrix power do
 Another method is to find a closed form for the solution of the recurrence relation. This leads to the real-valued formula: $$\mathrm{Fib}(n) = (\phi^{n+1} - \psi^{n+1}) / \sqrt{5})$$ where $$\phi = (1 + \sqrt{5}) / 2$$ and $$\psi = (1 - \sqrt{5}) / 2$$. The practical flaw in this method is that it requires arbitrary precision real-valued arithmetic, but it works for small $$n$$.
 
 {% highlight python %}
-	def fib_phi(n):
-		phi = (1 + math.sqrt(5)) / 2.0
-		psi = (1 - math.sqrt(5)) / 2.0
-		return int((phi ** (n+1) - psi ** (n+1)) / math.sqrt(5))
+    def fib_phi(n):
+        phi = (1 + math.sqrt(5)) / 2.0
+        psi = (1 - math.sqrt(5)) / 2.0
+        return int((phi ** (n+1) - psi ** (n+1)) / math.sqrt(5))
 {% endhighlight %}
 
 
@@ -133,45 +133,60 @@ and simplifying,
 
 $$F(x) = xF(x) + x^2F(x) + 1$$
 
+We can solve this equation for $$F$$ to get
 
-The magic trick of the method of generating functions is that we can solve this equation for $$F$$ to get $$F(x) = \frac{1}{1 - x - x^2}$$.
-This assumes that the infinite sum is convergent, but we know the Fibonacci numbers grow like $$\phi^n$$ and that geometric
+$$F(x) = \frac{1}{1 - x - x^2}$$
+
+It's surprising that we've managed to find a small and simple formula which captures all of the Fibonacci numbers,
+but it's not yet obvious how we can use it. We'll get to that in the next section.
+
+A technical aside is that we're going to want to evaluate $$F$$ at some values of $$x$$, and we'd like the sequence to converge.
+We know the Fibonacci numbers grow like $$\phi^n$$ and that geometric
 sequence $$\Sigma_n a^n$$ converge if $$a<1$$, so we know that if $$\|x\| < 1/\phi \simeq 0.618$$ then the sequence converges.
 
 ### An integer formula
 
 Now we're ready to start understanding the Python code.
 
-If we evaluate $$F(x)$$ at a negative power of 10, we'll be able to read off the first few Fibonacci numbers
-in the decimal expansion of the result. That's because $$F(10^{-n}) = \mathrm{Fib}(0) + \mathrm{Fib}(1)/10^n + \mathrm{Fib}(2)/10^{2n} + \mathrm{Fib}(3)/10^{3n} + ...$$.
-Before the Fibonacci numbers get larger than $$10^n$$ and they start interfering with their neighbours, the numbers are clearly visible in the expansion.
+To get the intuition behind the formula, we'll evaluate $$F$$ at $$10^{-3}$$.
 
-For example, the numbers $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89$$ are visible here:
+$$ \begin{align*}
+& F(10^{-3})  = \frac{1}{1 - 10^{-3} - 10^{-6}} \\
+& = 1.001\,002\,003\,005\,008\,013\,021\,034\,055\,089\,144\,233\,377\,610\,988\,599\,588\,187\,\ldots \end{align*}$$
 
-$$ F(10^{-3}) = \frac{1}{1 - 10^{-3} - 10^{-6}} = 1.001002003005008013021034055089... $$
+Interestingly, we can see some Fibonacci numbers in this decimal expansion: $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89$$. That seems magical and surprising, but it's because $$F(10^{-3}) = \mathrm{Fib}(0) + \mathrm{Fib}(1)/10^3 + \mathrm{Fib}(2)/10^6 + \mathrm{Fib}(3)/10^9 + \ldots$$.
 
-Negative powers of 10 aren't going to be convenient to code, and instead we'll use $$1/K$$ for some integer $$K$$. Then:
+In this example, the Fibonacci numbers are spaced out at multiples of $$1/1000$$, which means once they start getting bigger that 1000 they'll
+start interfering with their neighbours. We can see that starting at 988: the correct Fibonacci number is 987, but there's a 1 overflowed from the
+next number, and this breaks the pattern from then on.
 
-$$ F(1/K) = \frac{1}{1 - 1/K - 1/K^2} = K^2 / (K^2 - K - 1) $$
+But, if we're interested in the $$n$$th Fibonacci number, we can arrange for the negative power of 10 to be large enough that overflows don't disturb
+the entry we're interested in. We'll assume that $$10^{-k}$$ is sufficient, and we'll come back to picking a particular value for $$k$$.
 
-We still have the problem that this requires real arithmetic, but we can avoid that by multiplying up by a large enough integer.
-We'll use $$K^n$$ as the large integer. Then:
+Since we'd like to use integer maths (because it's easier to code), let's multiply by $$10^{kn}$$, which also puts the $$n$$th Fibonacci
+number just to the left of the decimal point, and simplify the equation.
 
-$$ K^n \cdot F(1/K) = K^{n+2} / (K^2 - K - 1) $$
+$$ 10^{kn} F(10^{-k}) = \frac{10^{kn}}{1 - 10^{-k} - 10^{-2k}} = \frac{10^{kn+2k}}{10^{2k} - 10^{k} - 1} $$
 
-This conveniently puts the digits (in base $$K$$) of $$F(1/K)$$  starting at the $$-n$$th power of $$K$$ just above the decimal point.
-Now, if we pick $$K$$ large enough, truncate the division at the decimal point, and take the result modulo $$K$$, we can find the $$n$$th Fibonacci number.
+If we take this result modulo $$10^k$$ now, we'll get the $$n$$th Fibonacci number (again, assuming we've picked $$k$$ large enough).
 
-How big does $$K$$ need to be? Well we already know that the Fibonacci numbers grow like $$\phi^n$$, and since $$\phi < 2$$, $$K = 2^{n+1}$$ should be enough
-to avoid overflow at position $$n$$.
+Before proceeding, let's switch to base 2 rather than base 10, which changes nothing but will make it easier to program.
 
-So!
+$$ 2^{kn} F(2^{-k}) = \frac{2^{k(n+2)}}{2^{2k} - 2^{k} - 1} $$
 
-$$ \mathrm{Fib}(n) \equiv \frac{(2^{n+1})^{n+2}}{(2^{n+1})^2 - 2^{n+1} - 1} \equiv \frac{2^{(n+1)(n+2)}}{2^{2n+2} - 2^{n+1} - 1} \mathrm{mod}\ 2^{n+1} $$
+All that's left is to pick a value of $$k$$ large enough so that $$\mathrm{Fib}(n+1) < 2^k$$. We know that the Fibonacci numbers
+grow like $$\phi^n$$, and $$\phi < 2$$, so $$k = n+1$$ is safe.
+
+So! Putting that together:
+
+$$ \begin{align*}
+\mathrm{Fib}(n) & \equiv 2^{(n+1)n}F(2^{-(n+1)})\ \mathrm{mod}\ 2^{n+1}\\
+& \equiv \frac{2^{(n+1)(n+2)}}{(2^{n+1})^2 - 2^{n+1} - 1}\ \mathrm{mod}\ 2^{n+1} \\
+& \equiv \frac{2^{(n+1)(n+2)}}{2^{2n+2} - 2^{n+1} - 1}\ \mathrm{mod}\ 2^{n+1} \end{align*} $$
 
 If we use left-shift notation that's available in python, where $$a << k = a \cdot 2^k$$ then we can write this as:
 
-$$ \mathrm{Fib}(n) \equiv \frac{4 << n(3+n)}{(4 << 2n) - (2 << n) - 1} \mathrm{mod}\ (2 << n)  $$
+$$ \mathrm{Fib}(n)  \equiv \frac{4 << n(3+n)}{(4 << 2n) - (2 << n) - 1} \mathrm{mod}\ (2 << n)  $$
 
 Observing that $$\mathrm{mod}\ (2 << n)$$ can be expressed as the bitwise and (`&`) of $$(2 << n) - 1$$, we reconstruct our original Python program:
 
