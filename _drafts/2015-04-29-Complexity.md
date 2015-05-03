@@ -9,6 +9,8 @@ take amortized $$O(1)$$ time. There's almost nothing that programmers universall
 these basic facts of complexity are considered basic truths.
 Unfortunately they're wrong.
 
+<!--more-->
+
 Complexity theory, as used by practicing programmers, is built on an abstraction
 of an idealized, but unspecified, model of computation. We assume that our unspecified
 model of computation behaves more-or-less like our actual computers, and that theoretical
