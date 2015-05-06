@@ -23,9 +23,9 @@ footer-links:
   flickr:
   github:
   instagram:
-  linkedin: paul.hankin@pobox.com
+  linkedin: paulhankin
   pinterest:
-  rss: # just type anything here for a working RSS icon, make sure you set the "url" above!
+  rss: rss # just type anything here for a working RSS icon, make sure you set the "url" above!
   twitter: pauldhankin
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
 
