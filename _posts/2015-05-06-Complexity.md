@@ -72,9 +72,8 @@ $$w$$ bits. However, unlike the "RAM is fixed sized words" model, this $$w$$ dep
 size of the input to a problem, and
 in fact for a problem of size $$n$$, $$w = O(\mathrm{log}\, n)$$.
 
-This model is pretty close to making our three facts true: merge sort runs in $$O(n\mathrm{log}\,n)$$ time,
-and there's no known algorithms for solving NP problems. Unfortunately though,
-it can be exploited to do an unreasonable amount of computation with the
+This model starts well: merge sort runs in $$O(n\mathrm{log}\,n)$$ time.
+Unfortunately though, it can be exploited to do an unreasonable amount of computation with the
 wide memory locations. A paper by Fredman,
 ["Surpassing the information-theoretic bound with fusion trees" (1993)][ref-fredman93],
 shows that in this model there exists $$O(n\mathrm{log}\,n/\mathrm{log\,log}\,n)$$ time sorts,
