@@ -18,7 +18,7 @@ an abstraction of a computer which elides all but the important
 details of the computer: the operations it can perform, and how the memory
 works.
 
-In this post, I'll look at some
+In this post, I'll look at some of
 the most common computational models used in both practice and theory, and
 find out that they're all flawed in one way or another, and in fact in all
 of them either mergesort doesn't run in $$O(n\mathrm{log}\,n)$$ or there's
