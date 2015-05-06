@@ -3,10 +3,9 @@ layout: post
 title: Everything you know about complexity is wrong
 ---
 
-The run-time of mergesort is $$O(n\mathrm{log}\,n)$$ and it's asymptotically optimal.
-There's not many programmers who would disagree with that,
-except perhaps to question whether it's talking about a model of computation
-that's not sufficiently close to a real computer, for example a quantum
+Who would disagree that the run-time of mergesort is $$O(n\mathrm{log}\,n)$$ and it's asymptotically optimal?
+Not many programmers I reckon, except perhaps to question whether it's talking about
+a model of computation that's not sufficiently close to a real computer, for example a quantum
 computer or one that perform arbitrary operations in parallel (possibly
 involving [sticks of spaghetti][ref-spaghetti-sort]).
 
