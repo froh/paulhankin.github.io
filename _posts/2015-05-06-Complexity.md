@@ -13,10 +13,12 @@ involving [sticks of spaghetti][ref-spaghetti-sort]).
 
 However, if you try to understand how to formalize what it means for a sort
 to run in $$O(n\mathrm{log}\,n)$$ and for it to be optimal,
-it's surprisingly difficult to find a suitable computational model. That is,
+it's surprisingly difficult to find a suitable computational model, that is,
 an abstraction of a computer which elides all but the important
 details of the computer: the operations it can perform, and how the memory
-works. In this post, I'll look at some
+works.
+
+In this post, I'll look at some
 the most common computational models used in both practice and theory, and
 find out that they're all flawed in one way or another, and in fact in all
 of them either mergesort doesn't run in $$O(n\mathrm{log}\,n)$$ or there's
