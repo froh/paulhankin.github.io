@@ -29,11 +29,13 @@ asymptotically faster sorts.
 Model 1: RAM is fixed-sized words
 --------------
 
-First up is a pragmatic model. Here, every object is assumed to fit into a 64-bit
+First up is a pragmatic model. Here, every item is assumed to fit into a 64-bit
 word of RAM.
 
-This has an immediate problem: an array of $$n$$ items can only contain $$2^{64}$$ different
-values, which makes sorting possible in $$O(n)$$ time using a bucket sort with $$2^{64}$$ buckets.
+This has an immediate problem: in a model where every item must fit into a 64-bit
+word, there's only $$2^{64}$$ unique items, so
+an array of $$n$$ items can contain at most $$2^{64}$$ unique items.
+This makes sorting possible in $$O(n)$$ time using a bucket sort with $$2^{64}$$ buckets.
 
 Another, more subtle, problem here is that the registers of our machine must also be 64-bit. That means
 that there's a finite (albeit huge) range of memory available to programs, which means that
