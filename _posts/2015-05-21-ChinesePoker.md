@@ -184,8 +184,7 @@ appropriate table for the front, middle and back hands.
 
 Rather than include here the full tables of 15,000 numbers, I've summarized
 the data below. A fuller version can be found
-[here](https://gist.github.com/paulhankin/2d4d39428214ed36b478), and the
-complete table can be found in the source code (see later for links).
+[here](https://gist.github.com/paulhankin/2d4d39428214ed36b478).
 
 |            | __Hand Range__                                             | __Winning Percentage__ |
 |------------|:----------------------------------------------------------:|:-----------------------|
@@ -349,8 +348,3 @@ since the game is zero-sum. That yields the difficult but doable mental calculat
 percentages $$P_f, P_m$$ and $$P_b$$:
 
 $$P_f + P_m + P_b + P_fP_m/100 + P_fP_b/100 + P_mP_b/100 - 2P_fP_mP_b/1000$$
-
-Source code
---------
-
-(Coming soon)
