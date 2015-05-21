@@ -182,9 +182,10 @@ $$ E_+ = p_f + p_m + p_b + p_fp_m + p_fp_b + p_mp_b - 2p_fp_mp_b $$
 where the probabilities $$p_f, p_m$$ and $$p_b$$ looked up in the
 appropriate table for the front, middle and back hands.
 
-Rather than include here the full tables of 15,000 numbers, I've summarized
+Rather than include here the full tables of numbers, I've summarized
 the data below. A fuller version can be found
-[here](https://gist.github.com/paulhankin/2d4d39428214ed36b478).
+[here](https://gist.github.com/paulhankin/2d4d39428214ed36b478)
+and [the complete strategy here](https://gist.github.com/paulhankin/2a05abd22be59bfb8268).
 
 |            | __Hand Range__                                             | __Winning Percentage__ |
 |------------|:----------------------------------------------------------:|:-----------------------|
@@ -257,7 +258,9 @@ between 57.71 and 60.84 percent chance of winning. By checking
 the [more complete
 table](https://gist.github.com/paulhankin/2d4d39428214ed36b478)
 , which has entries roughly for every one percent of
-difference, we can narrow that down to between 59 and 60 percent.
+difference, we can narrow that down to between 59 and 60 percent
+or [the complete table](https://gist.github.com/paulhankin/2a05abd22be59bfb8268)
+to get the exact figure: 59.64 percent.
 
 It's interesting to see that any full house in the middle is
 an extremely strong hand, and that the high cards in a flush or
