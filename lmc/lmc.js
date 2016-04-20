@@ -2,6 +2,7 @@ var computer = null;
 var view = null;
 
 var is_running = false;
+var auto_run_callback = null;
 
 function autoRun() {
 	if (!is_running || !computer.running) {
@@ -14,11 +15,12 @@ function autoRun() {
 function clickExecute() {
 	if (is_running) { return; }
 	is_running = true;
-	setInterval(autoRun, 50);
+	auto_run_callback = setInterval(autoRun, 50);
 }
 
 function clickStop() {
 	is_running = false;
+	clearInterval(auto_run_callback);
 }
 
 function newComputer() {
