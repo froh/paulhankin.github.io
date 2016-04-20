@@ -29,6 +29,7 @@
 .left_heading { margin-top: 20px; }
 textarea { resize: none; }
 #share { font-family: "Courier New"; font-size: 20px; color: #000; }
+.butt_row { margin-top: 5px; }
 </style>
 <script type="text/javascript" src="lmc.js"></script>
 </head>
@@ -67,8 +68,14 @@ M2  DAT
 </textarea>
 <div class="left_heading">Controls</div>
 <div id="controls">
+<div class="butt_row">
 <button type="button" onclick="clickAssemble()">Assemble</button>
 <button type="button" onclick="clickStep()">Step</button>
+</div>
+<div class="butt_row">
+<button type="button" onclick="clickExecute()">Execute</button>
+<button type="button" onclick="clickStop()">Stop</button>
+</div>
 </div>
 <div class="left_heading">Output</div>
 <textarea id="output_clean" readonly rows="10" cols="20"></textarea>

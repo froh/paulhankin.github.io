@@ -1,6 +1,26 @@
 var computer = null;
 var view = null;
 
+var is_running = false;
+
+function autoRun() {
+	if (!is_running || !computer.running) {
+		clickStop();
+		return;
+	}
+	clickStep();
+}
+
+function clickExecute() {
+	if (is_running) { return; }
+	is_running = true;
+	setInterval(autoRun, 50);
+}
+
+function clickStop() {
+	is_running = false;
+}
+
 function newComputer() {
 	var c = {
 		memory: new Array(100),
