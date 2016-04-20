@@ -37,6 +37,7 @@ function newView() {
 		output: document.getElementById("output"),
 		out_clean: document.getElementById("output_clean"),
 		program: document.getElementById("program"),
+		share: document.getElementById("sharable_link"),
 	};
 	var memtbl = document.getElementById("memory");
 	for (var i = 0; i < 100; i++) {
@@ -127,15 +128,6 @@ function updateView(v, c) {
 	v.pc.innerHTML = fmt3(c.pc);
 	v.a.innerHTML = fmt3(c.a);
 	v.flags.className = c.flagN ? "flag_set" : "flag_unset";
-}
-
-function init() {
-	initMemoryDom();
-	computer = newComputer();
-	computer.memory[42] = 102;
-	view = newView();
-	clickAssemble();
-	updateView(view, computer);
 }
 
 function clearConsole(con) {
@@ -310,6 +302,7 @@ function clickAssemble() {
 	if (!errors) {
 		writeConsole(con, 'Assembly OK!');
 	}
+	writeSharableLink(view)
 	updateView(view, computer);
 }
 
@@ -404,3 +397,38 @@ function clickStep() {
 	}
 	updateView(view, computer);
 }
+
+function getParameterByName(name) {
+    var url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i");
+    var results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function writeSharableLink(v) {
+	var url = window.location.href;
+	url = url.replace(/[?].*/, '');
+	url = url + '?program=' + btoa(v.program.value) + '&input=' + btoa(v.input.value);
+	view.share.innerHTML = "<a href=" + url + ">Sharable Link</a>";
+}
+
+function init() {
+	initMemoryDom();
+	computer = newComputer();
+	computer.memory[42] = 102;
+	view = newView();
+	var qp = getParameterByName("program");
+	if (qp) {
+		view.program.value = atob(qp);
+	}
+	qp = getParameterByName("input");
+	if (qp) {
+		view.input.value = atob(qp);
+	}
+	clickAssemble();
+	updateView(view, computer);
+}
+
