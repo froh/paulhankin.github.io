@@ -15,7 +15,7 @@ function autoRun() {
 function clickExecute() {
 	if (is_running) { return; }
 	is_running = true;
-	auto_run_callback = setInterval(autoRun, 50);
+	auto_run_callback = setInterval(autoRun, 10);
 }
 
 function clickStop() {
