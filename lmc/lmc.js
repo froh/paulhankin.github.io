@@ -222,7 +222,6 @@ function clickAssemble() {
 	var c = computer;
 	resetComputer(c);
 	view.out_clean.value = '';
-	writeConsole(con, 'Assembling...');
 	var errors = false;
 	var program = view.program.value.split('\n');
 	var asm = [];
@@ -230,8 +229,10 @@ function clickAssemble() {
 	var e = function() {
 		var args = Array.prototype.slice.call(arguments);
 		args.splice(1, 0, ': ');
-		args.splice(0, 0, 'Line ');
-		writeConsole(con, args.join(''));
+		args.splice(0, 0, 'Error at line ');
+		if (!errors) {
+			writeConsole(con, args.join(''));
+		}
 		errors = true;
 	}
 	for (var pass = 0; pass < 2; pass++) {
@@ -306,7 +307,9 @@ function clickAssemble() {
 			p += cmd.op ? 1 : 0;
 		}
 	}
-	writeConsole(con, errors ? 'Warning: there were errors during assembly.' : 'Assembly OK!');
+	if (!errors) {
+		writeConsole(con, 'Assembly OK!');
+	}
 	updateView(view, computer);
 }
 

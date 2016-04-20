@@ -13,14 +13,14 @@
 #memory .cell_pc ul { border-color: #afa; }
 #memory .cell.target ul { background-color: #311; }
 #memory .cell_pc.target ul { background-color: #311; }
-#regs { border-top-style: solid; border-color: #ff0; margin-top: 20px; padding-top: 20px; padding-bottom: 10px; padding-left: 110px; }
+#regs { border-top-style: none; margin-top: 5px; padding-top: 0px; padding-bottom: 10px; padding-left: 110px; }
 #regs { font-family: "Courier New"; font-size: 20px; color: #ffa; display: block; }
 #regs ul { display: inline-block; border: 0; padding: 0; margin: 0; width: 175px; }
 #regs ul li { list-style-type: none; display: inline-block; }
 .flag_set { color: #afa; }
 .flag_unset { color: #311; }
 .register { font-size: 200%; }
-#console { border-top-style: solid; border-color: #afa; margin-top: 10px; padding: 0; padding-bottom: 10px; }
+#console { border-top-style: none; margin-top: 0; padding: 0; padding-bottom: 10px; }
 #console { font-family: "Courier New"; font-size: 20px; color: #afa; }
 #console ul {  border: 0; padding: 1px; margin: 0; }
 #console ul li { list-style-type: none; display: block; height: 25px; }
@@ -34,7 +34,7 @@ textarea { resize: none; }
 <body onload="init()">
 <div class="leftpane">
 <div class="left_heading_top">Program</div>
-<textarea id="program" rows="30" cols="20">
+<textarea id="program" rows="25" cols="20">
     INP
     STA M0
     INP
@@ -59,7 +59,7 @@ M1  DAT
 M2  DAT
 </textarea>
 <div class="left_heading">Input</div>
-<textarea id="input" rows="10" cols="20">
+<textarea id="input" rows="5" cols="20">
 213
 987
 88
@@ -79,8 +79,8 @@ M2  DAT
 <ul class="register"><li>PC:<li id="regPC">0</ul>
 <ul class="register"><li id="flags">Neg</ul>
 </div>
-<div id="console">Machine Log
-<ul id="output"><li> <li> <li> <li> <li> </ul>
+<div id="console">
+<ul id="output"><li></ul>
 </div>
 </div>
 
