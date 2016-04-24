@@ -41,6 +41,7 @@ function newComputer() {
 function resetComputer(c) {
 	c.pc = 0;
 	c.a = 0;
+	c.ins = 0;
 	c.flagN = false;
 	c.inputLine = 0;
 	c.running = true;
@@ -54,6 +55,7 @@ function newView() {
 		memory: new Array(100),
 		a: document.getElementById("regA"),
 		pc: document.getElementById("regPC"),
+		ins: document.getElementById("regIns"),
 		flags: document.getElementById("flags"),
 		input: document.getElementById("input"),
 		output: document.getElementById("output"),
@@ -149,6 +151,7 @@ function updateView(v, c) {
 	}
 	v.pc.innerHTML = fmt3(c.pc);
 	v.a.innerHTML = fmt3(c.a);
+	v.ins.innerHTML = c.ins;
 	v.flags.className = c.flagN ? "flag_set" : "flag_unset";
 }
 
@@ -355,6 +358,7 @@ function step(c, v) {
 	if (c.pc < 0 || c.pc > 99) {
 		return "PC " + c.pc + " out of range";
 	}
+	c.ins += 1;
 	cmd = decompile(c.memory[c.pc]);
 	switch (cmd[0]) {
 	case 'ADD':
