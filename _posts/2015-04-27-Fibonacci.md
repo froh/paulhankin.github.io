@@ -127,7 +127,7 @@ $$\Sigma_n\mathrm{Fib}(n+2)x^{n+2} = \Sigma_n\mathrm{Fib}(n+1)x^{n+2} + \Sigma_n
 If we let $$F(x)$$ to be the generating function of $$\mathrm{Fib}$$, which is defined to be $$\Sigma_n\mathrm{Fib}(n)x^n$$ then this
 equation can be simplified:
 
-$$F(x) - x - 1 = x(F(x) - 1) + x^2F(X)$$
+$$F(x) - x - 1 = x(F(x) - 1) + x^2F(x)$$
 
 and simplifying,
 
